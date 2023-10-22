@@ -1,4 +1,3 @@
-from collections import Counter
 class Node:
     def __init__(self, left=None, right=None):
         self.left = left
@@ -27,13 +26,39 @@ def make_tree(nodes):
         nodes = sorted(nodes, key=lambda x: x[1], reverse=True)
     return nodes[0][0]
 
+def huffman_encode(string, mapping):
+    translation = str.maketrans(mapping)
+    translated_string = string.translate(translation)
+    return translated_string
+
+def huffman_decode(encoded_data, huffman_codes):
+    inverted_codes = {code: char for char, code in huffman_codes.items()}    
+    decoded_data = ""
+    code = ""
+    
+    for bit in encoded_data:
+        code += bit
+        if code in inverted_codes:
+            decoded_data += inverted_codes[code]
+            code = ""
+    
+    return decoded_data
 if __name__ == '__main__':
     file = open("spring.txt",'r')
     string = file.readline()
     file.close
-    frq=dict(Counter(string))
+    frq={}
+    for c in string:
+        if c in frq:
+            frq[c]+=1
+        else:
+            frq[c]=1
     frq=sorted(frq.items(), key=lambda x: x[1], reverse=True)
     node= make_tree(frq)
     encode= huffman_tree(node)
-    for i in encode:
-        print(f'{i} : {encode[i]}')
+    for (char, frequency) in frq:
+        print((char, encode[char]))
+    coded_string=huffman_encode(string,encode)
+    encoded_string=huffman_decode(coded_string, encode)
+    
+    print(coded_string, '', encoded_string)
