@@ -1,3 +1,4 @@
+import pprint
 class Node:
     def __init__(self, left=None, right=None):
         self.left = left
@@ -57,8 +58,7 @@ if __name__ == '__main__':
     node= make_tree(frq)
     encode= huffman_tree(node)
     for (char, frequency) in frq:
-        print((char, encode[char]))
+        print(char,'=', encode[char])
     coded_string=huffman_encode(string,encode)
     encoded_string=huffman_decode(coded_string, encode)
-    
-    print(coded_string, '', encoded_string)
+    print("Закодированная строка -",coded_string,'Декодированная строка', encoded_string)
