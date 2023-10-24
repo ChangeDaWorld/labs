@@ -1,4 +1,3 @@
-import pprint
 class Node:
     def __init__(self, left=None, right=None):
         self.left = left
@@ -45,7 +44,7 @@ def huffman_decode(encoded_data, huffman_codes):
     
     return decoded_data
 if __name__ == '__main__':
-    file = open("spring.txt",'r')
+    file = open("string.txt",'r')
     string = file.readline()
     file.close
     frq={}
